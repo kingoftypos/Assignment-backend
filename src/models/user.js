@@ -42,7 +42,7 @@ const User= new mongoose.Schema({
         default:" "
     }
 });
-user.methods.getJWT = async function () {
+User.methods.getJWT = async function () {
 
   
     const token = await jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
@@ -52,7 +52,7 @@ user.methods.getJWT = async function () {
     return token;
   };
   
-  user.methods.validatePassword = async function (passwordInputByUser) {
+  User.methods.validatePassword = async function (passwordInputByUser) {
     const passwordHash = this.password;
   
     const isPasswordValid = await bcrypt.compare(
@@ -63,4 +63,4 @@ user.methods.getJWT = async function () {
     return isPasswordValid;
   };
   
-  module.exports = mongoose.model("User", user);
+  module.exports = mongoose.model("User", User);
